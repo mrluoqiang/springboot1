@@ -1,0 +1,103 @@
+server:
+  port: 8088
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    username: root
+    url: jdbc:mysql://localhost:3306/firedevice?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true
+    password: 123456
+  jpa:
+    show-sql: true
+    database: mysql
+#  thymeleaf:
+#    suffix: .html
+#    mode: HTML5
+#    encoding: UTF-8
+#    content-type: text/html
+#    cache: false
+  resources:
+    static-locations: classpath:/static/, classpath:/templates/
+  #热部署生效
+  devtools:
+    restart:
+      enabled: true
+      #设置重启的目录，检索目录(resources/static、resources/templates)
+      additional-exclude: src/main/java
+      #classpath目录下的WEB-INF文件夹内容修改不重启
+      exclude: templates/**
+
+  redis:
+    #1:是哨兵模式  其他数字是普通模式
+    type: 2
+    # Redis数据库索引（默认为0）
+    database: 0
+    # #Matser的ip地址
+    host: 192.168.0.106
+    #host: 172.20.61.25
+    # Redis服务器连接端口
+    port: 6379
+    pool:
+      # 连接池最大连接数（使用负值表示没有限制）
+      max-active: 8
+      # 连接池中的最大空闲连接
+      min-idle: 0
+      # 连接池最大阻塞等待时间（使用负值表示没有限制）
+      max-wait: -1
+      #连接池中的最大空闲连接
+      max-idle: 8
+    password: 123456
+    #客户端超时时间单位是毫秒 默认是2000
+    timeout: 10000
+    sentinel:
+      master: mymaster
+      #nodes: 192.168.0.107:26379,192.168.0.107:26479
+      nodes: 172.20.61.25:26379,172.20.61.25:26479
+  ##消息队列
+  activemq:
+    broker-url: tcp://localhost:61616
+    user: admin
+    password: admin
+    in-memory: true      # 默认代理URL是否应该在内存中。如果指定了显式代理，则忽略此值。
+    non-blocking-redelivery: false  # 是否在回滚回滚消息之前停止消息传递。这意味着当启用此命令时，消息顺序不会被保留。
+    send-timeout: 0     # 等待消息发送响应的时间。设置为0等待永远。
+    queue-name: luo_qiang
+    topic-name: luo_qiang_topic
+    packages:
+      trust-all: true #不配置此项，会报错
+    pool:
+      enabled: true
+      max-connections: 10   #连接池最大连接数
+      idle-timeout: 30000   #空闲的连接过期时间，默认为30秒
+    jms:
+      pub-sub-domain: false  #默认情况下activemq提供的是queue模式，若要使用topic模式需要配置下面配置
+
+#对于rabbitMQ的支持
+  rabbitmq:
+    host: 127.0.0.1
+    port: 5672
+    username: guest
+    password: guest
+    listener:
+      simple:
+        acknowledge-mode: manual
+#阿里云短信，访问阿里云的唯一标识，用户在阿里云平台注册后，平台自动分配
+accessId: LTAI4FnqZr6fAJ9jF7ZxMMjF
+#AccessKey由阿里云平台自动生成赋予，用户需要保管好
+accessKey: NwcROjny83NNzQbJN4vWpZ3FABUqYK
+#短信发送模式：1-使用消息服务接口 2-使用短信服务接口
+aliyunSendMode: 1
+#访问阿里云MNS消息服务的接入地址，登录阿里云平台，在消息服务->主题（右上角即可查看）
+accountEndpoint: https://41238.mns.cn-hangzhou.aliyuncs.com
+#主题名称，阿里消息服务是以主题名称为基准
+topicName: sms.topic-cn-hangzhou
+#短信签名，阿里云平台申请(可用企业简称（如：“白熊”，短信下发时，阿里云会自动在短信前加上“【白熊】”）)
+sMSSignName: 白熊
+#短信模板，需要在阿里云平台申请，以SMS_ 开头
+sMSTemplateCode: SMS_162522609
+sMSTemplateCodeResetpwd: SMS_173472945
+# 短信模板中参数对应的值（在短信模板中定义的，没有可以不用设置），形参
+sMSTemplateParamKey: code
+
+resourse.url: http://storage.zmeng123.com/assets/2019/09/19/IIqo3ZajsZUiegm3.mp4
+
+

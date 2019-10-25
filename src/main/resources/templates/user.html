@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>$Title$</title>
+</head>
+<body>
+<table>
+    <tr>
+        <td>#</td>
+        <td>用户账号</td>
+        <td>用户密码</td>
+        <td>用户加密密码</td>
+        <td>用户身份</td>
+    </tr>
+    <tr th:each="UserAccount:${list}">
+        <td></td>
+        <td th:text="${UserAccount.userid}"></td>
+        <td th:text="${UserAccount.useraccount}"></td>
+        <td th:text="${UserAccount.password}"></td>
+        <td th:text="${UserAccount.md5password}"></td>
+        <td th:if="${UserAccount.state==1}" th:text="普通用户"></td>
+        <td th:if="${UserAccount.state==2}" th:text="员工"></td>
+        <td th:if="${UserAccount.state==3}" th:text="管理员" ></td>
+    </tr>
+</table>
+</body>
+</html>
